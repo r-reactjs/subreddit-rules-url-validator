@@ -7,6 +7,9 @@ inputs:
     description: Subreddit name such as r/reactjs or r/javascript
     required: true
     default: r/reactjs
+  githubToken:
+    description: OAuth token with 'public_repo' permission
+    required: true
 runs:
   # Using: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/metadata-syntax-for-github-actions#using
   using: 'node12'

@@ -17,6 +17,7 @@ jobs:
         uses: r-reactjs/subreddit-rules-url-validator@hello-world-action
         with:
           subreddit: r/reactjs
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
       # - uses: actions/checkout@v1
       #   with:
       #     subreddit: r/reactjs

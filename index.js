@@ -2,18 +2,29 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-try {
+// https://github.com/actions/toolkit/tree/master/packages/github#usage
+async function run() {
+  // This should be a token with access to your repository scoped in as a secret.
+  // The YML workflow will need to set myToken with the GitHub Secret Token
+  // githubToken: ${{ secrets.GITHUB_TOKEN }}
+  // https://help.github.com/en/actions/automating-your-workflow-with-github-actions/authenticating-with-the-github_token#about-the-github_token-secret
+  const githubToken = core.getInput('githubToken');
   const subreddit = core.getInput('subreddit');
-  console.log(`Hello ${subreddit}!`);
-  // const time = (new Date()).toTimeString();
-  // core.setOutput("time", time);
-  // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(
-    github.context.payload,
-    undefined,
-    2
+  const repo = new github.GitHub(githubToken);
+
+  const context = github.context;
+
+  const newIssue = await repo.issues.create({
+    ...context.repo,
+    repo: 'r-reactjs/subreddit-rules-url-validator',
+    title: `New broken link(s) for "${subreddit}"!`,
+    body: `Creating an issue for subreddit, "${subreddit}". Check this out, @dance2die!!!`
+  });
+
+  console.log(
+    `newIssue`,
+    JSON.stringify(newIssue, null, 2)
   );
-  console.log(`The event payload: ${payload}`);
-} catch (error) {
-  core.setFailed(error.message);
 }
+
+run();
