@@ -1,3 +1,10 @@
+
+# Dependency directories
+# Need to include node_modules for actions
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-a-javascript-action#commit-and-push-your-action-to-github
+#node_modules/
+jspm_packages/
+
 # Logs
 logs
 *.log
@@ -36,10 +43,6 @@ bower_components
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
-
-# Dependency directories
-node_modules/
-jspm_packages/
 
 # TypeScript v1 declaration files
 typings/
