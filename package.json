@@ -1,0 +1,25 @@
+{
+  "name": "subreddit-rules-url-validator",
+  "version": "0.0.1",
+  "description": "Validate r/reactjs sidebar URLs and report broken links as GitHub issues.",
+  "main": "index.js",
+  "dependencies": {
+    "@actions/core": "^1.2.2",
+    "@actions/github": "^2.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r-reactjs/sidebar-url-validator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/r-reactjs/sidebar-url-validator/issues"
+  },
+  "homepage": "https://github.com/r-reactjs/sidebar-url-validator#readme"
+}
