@@ -7,9 +7,10 @@ inputs:
     description: Subreddit name such as r/reactjs or r/javascript
     required: true
     default: r/reactjs
-# Using: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/metadata-syntax-for-github-actions#using
-using: 'node10'
-main: index.js
+runs:
+  # Using: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/metadata-syntax-for-github-actions#using
+  using: 'node10'
+  main: index.js
 # Branding: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/metadata-syntax-for-github-actions#branding
 branding:
   icon: battery-chargin
