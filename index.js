@@ -16,7 +16,8 @@ async function run() {
 
   const newIssue = await repo.issues.create({
     ...context.repo,
-    repo: 'r-reactjs/subreddit-rules-url-validator',
+    owner: 'r-reactjs',
+    repo: 'subreddit-rules-url-validator',
     title: `New broken link(s) for "${subreddit}"!`,
     body: `Creating an issue for subreddit, "${subreddit}". Check this out, @dance2die!!!`
   });
