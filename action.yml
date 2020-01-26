@@ -9,7 +9,7 @@ inputs:
     default: r/reactjs
 runs:
   # Using: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/metadata-syntax-for-github-actions#using
-  using: 'node10'
+  using: 'node12'
   main: index.js
 # Branding: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/metadata-syntax-for-github-actions#branding
 branding:
