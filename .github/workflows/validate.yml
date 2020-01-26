@@ -1,17 +1,20 @@
-name: Node CI
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-a-javascript-action#testing-out-your-action-in-a-workflow
+name: Report broken Subreddit sidebar and rule URLs
 
 on: [push]
 
 jobs:
-  build:
+  report_job:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [10.x]
+    # strategy:
+    #   matrix:
+    #     node-version: [10.x]
 
     steps:
-      - uses: r-reactjs/subreddit-rules-url-validator@hello-world-action
+      - name: Run the node action to validate URLs and create issues
+        id: report_job
+        uses: r-reactjs/subreddit-rules-url-validator@hello-world-action
         with:
           subreddit: r/reactjs
       # - uses: actions/checkout@v1
