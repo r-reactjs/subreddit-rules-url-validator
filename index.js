@@ -150,13 +150,18 @@ const buildBody = ({ brokenRules, brokenSidebar }) => {
   if (brokenRules.length > 0) {
     rulesBody =
       '## Broken URLs in Rules\n' +
-      brokenRules.map(({ value: { rule, checkedResults } }) => {
-        const title = `* Rule Name: ${rule}\n`
-        const body = checkedResults
-          .map(({ value: { url } }) => `  - ${url}`)
-          .join('\n')
-        return title + body
-      })
+      brokenRules
+        .filter(
+          brokenRule =>
+            brokenRule.value && brokenRule.value.checkedResults.length > 0
+        )
+        .map(({ value: { rule, checkedResults } }) => {
+          const title = `* Rule Name: ${rule}\n`
+          const body = checkedResults
+            .map(({ value: { url } }) => `  - ${url}`)
+            .join('\n')
+          return title + body
+        })
   }
 
   let sidebarBody = ''
