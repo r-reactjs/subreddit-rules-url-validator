@@ -1,6 +1,13 @@
 // https://github.com/actions/hello-world-javascript-action/blob/master/index.js
 const core = require('@actions/core');
 const github = require('@actions/github');
+const decode = require('unescape');
+const cheerio = require('cheerio');
+const urlExists = require('url-exists');
+const util = require('util');
+const allSettled = require('promise.allsettled');
+
+const urlIsAvailable = util.promisify(urlExists);
 
 // https://github.com/actions/toolkit/tree/master/packages/github#usage
 async function run() {
