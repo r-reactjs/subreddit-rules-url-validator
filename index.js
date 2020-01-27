@@ -174,7 +174,7 @@ async function main() {
   const brokenRules = (await getRulesUrlList(urlMap.rules.url)).map(rule =>
     rule.value.checkedResults.filter(({ value }) => !value.exist)
   )
-  const brokenSidebar = await getSidebarUrlList(urlMap.sidebar.url).filter(
+  const brokenSidebar = (await getSidebarUrlList(urlMap.sidebar.url)).filter(
     sidebar => !sidebar.value.exist
   )
 
