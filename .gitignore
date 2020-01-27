@@ -2,7 +2,7 @@
 # Dependency directories
 # Need to include node_modules for actions
 # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-a-javascript-action#commit-and-push-your-action-to-github
-#node_modules/
+node_modules/
 jspm_packages/
 
 # Logs
