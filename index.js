@@ -64,7 +64,9 @@ const validateRulesUrlList = async ({ short_name, description_html }) => {
       }))
   )
 
-  const checkedResults = await allSettled(checkPromises)
+  const checkedResults = (await allSettled(checkPromises)).filter(
+    ({ value: { exist } }) => !exist
+  )
   return { rule: short_name, checkedResults }
 }
 
@@ -102,7 +104,9 @@ const getSidebarUrlList = async url => {
         }))
     )
 
-    return await allSettled(checkPromises)
+    return (await allSettled(checkPromises)).filter(
+      ({ value: { exist } }) => !exist
+    )
   } catch (error) {
     Promise.reject(error)
   }
@@ -165,12 +169,8 @@ const buildBody = ({ brokenRules, brokenSidebar }) => {
 
 // https://github.com/actions/toolkit/tree/master/packages/github#usage
 async function main() {
-  const brokenRules = (await getRulesUrlList(urlMap.rules.url)).filter(
-    brokenLinksOnly
-  )
-  const brokenSidebar = (await getSidebarUrlList(urlMap.sidebar.url)).filter(
-    brokenLinksOnly
-  )
+  const brokenRules = await getRulesUrlList(urlMap.rules.url)
+  const brokenSidebar = await getSidebarUrlList(urlMap.sidebar.url)
   const brokenLinkCount = brokenRules.length + brokenSidebar.length
   if (brokenLinkCount === 0) return
 
