@@ -9,8 +9,7 @@
     "cheerio": "^1.0.0-rc.3",
     "isomorphic-fetch": "^2.2.1",
     "promise.allsettled": "^1.0.2",
-    "unescape": "^1.0.1",
-    "url-exists": "^1.0.3"
+    "unescape": "^1.0.1"
   },
   "devDependencies": {},
   "scripts": {
