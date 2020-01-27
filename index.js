@@ -191,8 +191,8 @@ async function main() {
   const brokenLinkCount = brokenRules.length + brokenSidebar.length
   if (brokenLinkCount === 0) return
 
-  // console.info(`brokenRules`, JSON.stringify(brokenRules, null, 2))
-  // console.info(`brokenSidebar`, JSON.stringify(brokenSidebar, null, 2))
+  console.info(`brokenRules`, JSON.stringify(brokenRules, null, 2))
+  console.info(`brokenSidebar`, JSON.stringify(brokenSidebar, null, 2))
 
   const body = buildBody({ brokenRules, brokenSidebar })
   const title = `${brokenLinkCount} Broken link${brokenLinkCount > 1 &&
