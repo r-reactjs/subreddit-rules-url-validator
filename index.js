@@ -3,11 +3,21 @@ const core = require('@actions/core')
 const github = require('@actions/github')
 const decode = require('unescape')
 const cheerio = require('cheerio')
-const urlExists = require('url-exists')
-const util = require('util')
+// const urlExists = require('url-exists')
+// const util = require('util')
 const allSettled = require('promise.allsettled')
 
-const urlIsAvailable = util.promisify(urlExists)
+async function urlExists(url, cb) {
+  try {
+    const response = await fetch({ url: url, method: 'HEAD' })
+    return /4\d\d/.test(response.status) === false
+  } catch (error) {
+    return false
+  }
+}
+
+// const urlIsAvailable = util.promisify(urlExists)
+const urlIsAvailable = urlExists
 
 // This should be a token with access to your repository scoped in as a secret.
 // The YML workflow will need to set myToken with the GitHub Secret Token
