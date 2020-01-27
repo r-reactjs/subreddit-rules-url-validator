@@ -176,7 +176,9 @@ async function main() {
 
   const body = buildBody({ brokenRules, brokenSidebar })
   const title = `${brokenLinkCount} Broken link${brokenLinkCount > 1 &&
-    's'} on ${now.toISOString()}`
+    's'} on ${new Date().toISOString()}`
+
+  console.info(`Total broken link count:`, brokenLinkCount)
 
   const newIssue = await octokit.issues.create({
     ...context.repo,
