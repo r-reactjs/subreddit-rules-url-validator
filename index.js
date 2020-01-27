@@ -142,7 +142,6 @@ sidebarUrlList [
 ]
 */
 
-const brokenLinksOnly = ({ value: { exist } }) => !exist
 const buildBody = ({ brokenRules, brokenSidebar }) => {
   let rulesBody = ''
   if (brokenRules.length > 0) {
