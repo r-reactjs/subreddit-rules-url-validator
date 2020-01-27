@@ -172,7 +172,7 @@ const buildBody = ({ brokenRules, brokenSidebar }) => {
   let footer = `
 ---
 
-Check out broken links above, xxmarkerikson, xxsw-yx, dance2die, xxjimmytimmons
+Check out broken links above, xxmarkerikson, xxsw-yx, @dance2die, xxjimmytimmons
   `
 
   return rulesBody + '\n' + sidebarBody + '\n' + footer
