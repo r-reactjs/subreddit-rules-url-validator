@@ -194,12 +194,14 @@ async function main() {
 
   console.info(`Total broken link count:`, brokenLinkCount)
 
+  const assignees = ['dance2die', 'xxmarkerikson', 'xxsw-yx', 'xxjimmytimmons']
   const newIssue = await octokit.issues.create({
     ...context.repo,
     owner,
     repo,
     title,
-    body
+    body,
+    assignees
   })
 
   // console.log(`newIssue`, JSON.stringify(newIssue, null, 2))
