@@ -169,7 +169,11 @@ const buildBody = ({ brokenRules, brokenSidebar }) => {
       brokenSidebar.map(({ value: { url } }) => `  - ${url}`).join('\n')
   }
 
-  return rulesBody + '\n' + sidebarBody
+  let footer = `---
+    Check out broken links above, xxmarkerikson, xxsw-yx, dance2die, xxjimmytimmons
+  `
+
+  return rulesBody + '\n' + sidebarBody + '\n' + footer
 }
 
 // https://github.com/actions/toolkit/tree/master/packages/github#usage
