@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Run the node action to validate URLs and create issues
         id: report_job
-        uses: r-reactjs/subreddit-rules-url-validator@hello-world-action
+        uses: r-reactjs/subreddit-rules-url-validator@master
         with:
           subreddit: r/reactjs
           githubToken: ${{ secrets.GITHUB_TOKEN }}
