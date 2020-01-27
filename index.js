@@ -179,7 +179,9 @@ async function main() {
   const brokenRules = (await getRulesUrlList(urlMap.rules.url)).map(rule =>
     rule.value.checkedResults.filter(
       brokenRule =>
-        brokenRule.value && brokenRule.value.checkedResults.length > 0
+        brokenRule.value &&
+        brokenRule.value.checkedResults &&
+        brokenRule.value.checkedResults.length > 0
     )
   )
   const brokenSidebar = (await getSidebarUrlList(urlMap.sidebar.url)).filter(
