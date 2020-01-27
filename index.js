@@ -64,9 +64,7 @@ const validateRulesUrlList = async ({ short_name, description_html }) => {
       }))
   )
 
-  const checkedResults = (await allSettled(checkPromises)).filter(
-    ({ value: { exist } }) => !exist
-  )
+  const checkedResults = await allSettled(checkPromises)
   return { rule: short_name, checkedResults }
 }
 
@@ -104,39 +102,44 @@ const getSidebarUrlList = async url => {
         }))
     )
 
-    return (await allSettled(checkPromises)).filter(
-      ({ value: { exist } }) => !exist
-    )
+    return await allSettled(checkPromises)
   } catch (error) {
     Promise.reject(error)
   }
 }
 
 /*
-  // https://codesandbox.io/s/parse-reddit-api-returned-html-h3hfv
-rulesUrlList ==>  [
-{
-  "status": "fulfilled",
-  "value": {
-    "rule": "Be kind",
-    "checkedResults": [
-      {
-        "status": "fulfilled",
-        "value": {
-          "exist": true,
-          "url": "https://..."
-        }
-      }
-    ]
-  }
-},]
-
-sidebarUrlList [
+brokenRules [
   {
     "status": "fulfilled",
     "value": {
-      "exist": true,
+      "rule": "Be kind",
+      "checkedResults": [
+        {
+          "status": "fulfilled",
+          "value": {
+            "exist": false,
+            "url": "https://www.reddithelp.com/en/categories/reddit-101/reddit-basics/reddiquette"
+          }
+        }
+      ]
+    }
+  },
+]
+
+brokenSidebar [
+  {
+    "status": "fulfilled",
+    "value": {
+      "exist": false,
       "url": "http://facebook.github.io/react/"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "exist": false,
+      "url": "https://reactjs.org/docs/getting-started.html"
     }
   },
 ]
@@ -168,8 +171,13 @@ const buildBody = ({ brokenRules, brokenSidebar }) => {
 
 // https://github.com/actions/toolkit/tree/master/packages/github#usage
 async function main() {
-  const brokenRules = await getRulesUrlList(urlMap.rules.url)
-  const brokenSidebar = await getSidebarUrlList(urlMap.sidebar.url)
+  const brokenRules = (await getRulesUrlList(urlMap.rules.url)).map(rule =>
+    rule.value.checkedResults.filter(({ value }) => !value.exist)
+  )
+  const brokenSidebar = await getSidebarUrlList(urlMap.sidebar.url).filter(
+    sidebar => !sidebar.value.exist
+  )
+
   const brokenLinkCount = brokenRules.length + brokenSidebar.length
   if (brokenLinkCount === 0) return
 
