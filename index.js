@@ -169,13 +169,7 @@ const buildBody = ({ brokenRules, brokenSidebar }) => {
       brokenSidebar.map(({ value: { url } }) => `  - ${url}`).join('\n')
   }
 
-  let footer = `
----
-
-Check out broken links above, xxmarkerikson, xxsw-yx, @dance2die, xxjimmytimmons
-  `
-
-  return rulesBody + '\n' + sidebarBody + '\n' + footer
+  return rulesBody + '\n' + sidebarBody
 }
 
 // https://github.com/actions/toolkit/tree/master/packages/github#usage
@@ -190,7 +184,7 @@ async function main() {
 
   const body = buildBody({ brokenRules, brokenSidebar })
   const title = `${brokenLinkCount} Broken link${brokenLinkCount > 1 &&
-    's'} on ${new Date().toISOString()}`
+    's'} found on ${new Date().toISOString()}`
 
   console.info(`Total broken link count:`, brokenLinkCount)
 
