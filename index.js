@@ -8,7 +8,7 @@ const fetch = require('isomorphic-fetch')
 
 async function urlExists(url) {
   try {
-    const response = await fetch({ url: url, method: 'HEAD' })
+    const response = await fetch(url, { method: 'HEAD' })
     return /4\d\d/.test(response.status) === false
   } catch (error) {
     return false
