@@ -16,5 +16,5 @@ runs:
   main: index.js
 # Branding: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/metadata-syntax-for-github-actions#branding
 branding:
-  icon: battery-chargin
+  icon: battery-charging
   color: blue
