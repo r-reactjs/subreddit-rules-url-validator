@@ -194,7 +194,8 @@ async function main() {
 
   console.info(`Total broken link count:`, brokenLinkCount)
 
-  const assignees = ['dance2die', 'xxmarkerikson', 'xxsw-yx', 'xxjimmytimmons']
+  // const assignees = ['dance2die', 'markerikson', 'sw-yx', 'jimmytimmons']
+  const assignees = ['dance2die']
   const newIssue = await octokit.issues.create({
     ...context.repo,
     owner,
