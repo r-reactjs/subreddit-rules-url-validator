@@ -64,7 +64,9 @@ const validateRulesUrlList = async ({ short_name, description_html }) => {
       }))
   )
 
-  const checkedResults = await allSettled(checkPromises)
+  const checkedResults = (await allSettled(checkPromises)).filter(
+    ({ value }) => !value.exist
+  )
   return { rule: short_name, checkedResults }
 }
 
@@ -81,7 +83,8 @@ const getRulesUrlList = async url => {
       })
       .map(async rule => await validateRulesUrlList(rule))
 
-    return await allSettled(brokenPromises)
+    const brokenLinks = await allSettled(brokenPromises)
+    return brokenLinks.filter(link => link.value.checkedResults.length > 0)
   } catch (error) {
     Promise.reject(error)
   }
@@ -102,7 +105,7 @@ const getSidebarUrlList = async url => {
         }))
     )
 
-    return await allSettled(checkPromises)
+    return (await allSettled(checkPromises)).filter(({ value }) => !value.exist)
   } catch (error) {
     Promise.reject(error)
   }
@@ -150,18 +153,13 @@ const buildBody = ({ brokenRules, brokenSidebar }) => {
   if (brokenRules.length > 0) {
     rulesBody =
       '## Broken URLs in Rules\n' +
-      brokenRules
-        // .filter(
-        //   brokenRule =>
-        //     brokenRule.value && brokenRule.value.checkedResults.length > 0
-        // )
-        .map(({ value: { rule, checkedResults } }) => {
-          const title = `* Rule Name: ${rule}\n`
-          const body = checkedResults
-            .map(({ value: { url } }) => `  - ${url}`)
-            .join('\n')
-          return title + body
-        })
+      brokenRules.map(({ value: { rule, checkedResults } }) => {
+        const title = `* Rule Name: ${rule}\n`
+        const body = checkedResults
+          .map(({ value: { url } }) => `  - ${url}`)
+          .join('\n')
+        return title + body
+      })
   }
 
   let sidebarBody = ''
@@ -176,18 +174,8 @@ const buildBody = ({ brokenRules, brokenSidebar }) => {
 
 // https://github.com/actions/toolkit/tree/master/packages/github#usage
 async function main() {
-  const brokenRules = (await getRulesUrlList(urlMap.rules.url)).map(rule =>
-    rule.value.checkedResults.filter(
-      brokenRule =>
-        brokenRule.value &&
-        brokenRule.value.checkedResults &&
-        brokenRule.value.checkedResults.length > 0
-    )
-  )
-  const brokenSidebar = (await getSidebarUrlList(urlMap.sidebar.url)).filter(
-    sidebar => !sidebar.value.exist
-  )
-
+  const brokenRules = await getRulesUrlList(urlMap.rules.url)
+  const brokenSidebar = await getSidebarUrlList(urlMap.sidebar.url)
   const brokenLinkCount = brokenRules.length + brokenSidebar.length
   if (brokenLinkCount === 0) return
 
