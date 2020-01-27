@@ -151,10 +151,10 @@ const buildBody = ({ brokenRules, brokenSidebar }) => {
     rulesBody =
       '## Broken URLs in Rules\n' +
       brokenRules
-        .filter(
-          brokenRule =>
-            brokenRule.value && brokenRule.value.checkedResults.length > 0
-        )
+        // .filter(
+        //   brokenRule =>
+        //     brokenRule.value && brokenRule.value.checkedResults.length > 0
+        // )
         .map(({ value: { rule, checkedResults } }) => {
           const title = `* Rule Name: ${rule}\n`
           const body = checkedResults
@@ -177,7 +177,10 @@ const buildBody = ({ brokenRules, brokenSidebar }) => {
 // https://github.com/actions/toolkit/tree/master/packages/github#usage
 async function main() {
   const brokenRules = (await getRulesUrlList(urlMap.rules.url)).map(rule =>
-    rule.value.checkedResults.filter(({ value }) => !value.exist)
+    rule.value.checkedResults.filter(
+      brokenRule =>
+        brokenRule.value && brokenRule.value.checkedResults.length > 0
+    )
   )
   const brokenSidebar = (await getSidebarUrlList(urlMap.sidebar.url)).filter(
     sidebar => !sidebar.value.exist
