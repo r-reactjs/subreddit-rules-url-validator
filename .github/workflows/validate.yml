@@ -1,11 +1,15 @@
 # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-a-javascript-action#testing-out-your-action-in-a-workflow
 name: Report broken Subreddit sidebar and rule URLs
 
-# Every day https://crontab.guru/#45_16_*_*_*
-# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#triggering-a-workflow-with-events
 on:
   schedule:
-    - cron: '45 16 * * *'
+    - cron: '0 */3 * * *'
+
+# # Every day https://crontab.guru/#45_16_*_*_*
+# # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#triggering-a-workflow-with-events
+# on:
+#   schedule:
+#     - cron: '45 16 * * *'
 
 # on: [push]
 # on:
