@@ -3,7 +3,7 @@ name: Report broken Subreddit sidebar and rule URLs
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 1 * * *'
 
 # # Every day https://crontab.guru/#45_16_*_*_*
 # # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#triggering-a-workflow-with-events
