@@ -4,7 +4,7 @@
   "description": "Validate r/reactjs sidebar URLs and report broken links as GitHub issues.",
   "main": "index.js",
   "dependencies": {
-    "@actions/core": "^1.2.2",
+    "@actions/core": "^1.9.1",
     "@actions/github": "^2.1.0",
     "cheerio": "^1.0.0-rc.3",
     "isomorphic-fetch": "^2.2.1",
